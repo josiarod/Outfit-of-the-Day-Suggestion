@@ -44,8 +44,6 @@ public class Item implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Wind wind;
 
     public Item() {
         picture = "";
@@ -53,11 +51,11 @@ public class Item implements Serializable {
         category = new Category();
         weather = new Weather();
         occasion = new Occasion();
-        wind = new Wind();
+
     }
 
 
-    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, Weather weather, Occasion occasion, Category category, User user, Wind wind) {
+    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, Weather weather, Occasion occasion, Category category, User user) {
         this.name = name;
         this.color = color;
         this.fabricMaterial = fabricMaterial;
@@ -68,7 +66,7 @@ public class Item implements Serializable {
         this.occasion = occasion;
         this.category = category;
         this.user = user;
-        this.wind = wind;
+
     }
 
     public static long getSerialVersionUID() {
@@ -163,11 +161,4 @@ public class Item implements Serializable {
         this.user = user;
     }
 
-    public Wind getWind() {
-        return wind;
-    }
-
-    public void setWind(Wind wind) {
-        this.wind = wind;
-    }
 }

@@ -1,5 +1,4 @@
-
-package com.example.demo;
+package com.example.outfitproject.model.config;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
