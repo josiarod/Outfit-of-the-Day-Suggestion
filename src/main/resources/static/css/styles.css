@@ -1,0 +1,32 @@
+html, body {
+    height: 100vh;
+    height: 100%;
+}
+
+.letter-space {
+    letter-spacing: 2px;
+}
+
+.navbar-brand {
+    letter-spacing: 2px;
+}
+
+.gram {
+    color: #1DA1F2;
+}
+
+header {
+    padding: 156px 0 100px;
+}
+
+.home-bg {
+    background: url('https://images.unsplash.com/photo-1537274942065-eda9d00a6293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+}
+
+section {
+    padding: 150px 0 105px;
+}
+
+.a-links {
+    text-decoration: none !important;
+}

@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Outfitgram</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://kit.fontawesome.com/a6ae2d75db.js" crossorigin="anonymous"></script>
 </head>
-<body>
 
+<body id="page-top">
+<nav th:replace="base :: navbar-links"></nav>
+
+    <header class="home-bg bg-primary text-white">
+        <div class="container text-center">
+            <h1>Welcome to Outfitgram</h1>
+            <p class="lead">Create and generate an outfit perfect for the current weather!</p>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="card-deck mb-3 text-center">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">CREATE</h4>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-tshirt fa-3x"></i>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Create a new outfit</li>
+                        </ul>
+                        <a class="a-links" href="/add"><button type="button" class="mt-auto btn btn-lg btn-block btn-outline-primary">Create</button></a>
+                    </div>
+                </div>
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">WEATHER</h4>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-cloud-sun fa-3x"></i>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Get the current weather</li>
+                        </ul>
+                        <a class="a-links" href="#job-listings"><button type="button" class="mt-auto btn btn-lg btn-block btn-outline-primary">Get Weather</button></a>
+                    </div>
+                </div>
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">GENERATE</h4>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-user-secret fa-3x"></i>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Generate an outfit</li>
+                        </ul>
+                        <a class="a-links" href="#job-listings"><button type="button" class="mt-auto btn btn-lg btn-block btn-outline-primary">Generate</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer th:replace="base :: footer-frag"></footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
