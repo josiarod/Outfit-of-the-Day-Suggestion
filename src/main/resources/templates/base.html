@@ -18,11 +18,17 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/">Home</a>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+                </li>
+                <li sec:authorize ="isAuthenticated()" class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/index">[[${#authentication.name}]]</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>

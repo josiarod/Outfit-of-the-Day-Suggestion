@@ -8,9 +8,11 @@ import com.example.outfitproject.model.config.CloudinaryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
@@ -55,22 +57,17 @@ public class LoginController {
         return "register";
     }
     @PostMapping("/register")
-    public String processRegistrationPage(@ModelAttribute("user") User user, Model model,
-                                          @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return "redirect:/register";
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        model.addAttribute("user",user);
+        if(result.hasErrors()){
+            return "register";
+        }else {
+            userService.saveUser(user);
+            model.addAttribute("message", "User Account created");
         }
-        try {
-            Map uploadResult = cloudc.upload(file.getBytes(),
-                    ObjectUtils.asMap("resourcetype", "auto"));
-            user.setPhoto(uploadResult.get("url").toString());
-            userRepository.save(user);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "redirect:/register";
-        }
-        return "redirect:/";
+        return  "redirect:/login";
     }
+
 }
 
 
