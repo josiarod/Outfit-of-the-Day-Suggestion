@@ -32,13 +32,9 @@ public class Item implements Serializable {
     @NotNull
     private String description;
 
-    @ManyToOne
-    private Weather weather;
 
-    @ManyToOne
-    private Occasion occasion;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
     @ManyToOne
@@ -49,21 +45,16 @@ public class Item implements Serializable {
         picture = "";
         user = new User();
         category = new Category();
-        weather = new Weather();
-        occasion = new Occasion();
-
     }
 
 
-    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, Weather weather, Occasion occasion, Category category, User user) {
+    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, Category category, User user) {
         this.name = name;
         this.color = color;
         this.fabricMaterial = fabricMaterial;
         this.size = size;
         this.picture = picture;
         this.description = description;
-        this.weather = weather;
-        this.occasion = occasion;
         this.category = category;
         this.user = user;
 
@@ -129,21 +120,7 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Weather getWeather() {
-        return weather;
-    }
 
-    public void setWeather(Weather weather) {
-        this.weather = weather;
-    }
-
-    public Occasion getOccasion() {
-        return occasion;
-    }
-
-    public void setOccasion(Occasion occasion) {
-        this.occasion = occasion;
-    }
 
     public Category getCategory() {
         return category;

@@ -2,6 +2,8 @@ package com.example.outfitproject.model.controllers;
 
 import com.cloudinary.utils.ObjectUtils;
 import com.example.outfitproject.main.entity.User;
+import com.example.outfitproject.main.entity.repositories.CategoryRepository;
+import com.example.outfitproject.main.entity.repositories.ItemRepository;
 import com.example.outfitproject.main.entity.repositories.UserRepository;
 import com.example.outfitproject.main.services.UserService;
 import com.example.outfitproject.model.config.CloudinaryConfig;
@@ -29,8 +31,21 @@ public class LoginController {
     @Autowired
     CloudinaryConfig cloudc;
 
+    @Autowired
+    ItemRepository itemRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+//    @RequestMapping("/")
+//    public String index(){
+//        return "index";
+//    }
+
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model) {
+        model.addAttribute("items", itemRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "index";
     }
     @RequestMapping("/login")

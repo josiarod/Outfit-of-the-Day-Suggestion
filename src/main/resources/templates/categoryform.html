@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add Category</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="wrapper" style="background-image: url('images/bg-registration-form-1.jpg');">
+    <div class="inner">
+        <div class="image-holder">
+            <img src="images/registration-form-1.jpg" alt="">
+        </div>
+        <form action="#" th:action="@{/process-category}" th:object="${category}" method="post">
+            <input th:field="*{id}" type="hidden"/>
+
+            <h3>Add Category</h3>
+            <div class="form-group">
+                <input type="text" id="firstName" placeholder=" Name" th:field="*{name}" class="form-control">
+<!--                <strong>-->
+<!--                     <span class="error-message"-->
+<!--                           th:errors="*{name}"-->
+<!--                           th:if="${#fields.hasErrors('name')}">-->
+<!--                     </span>-->
+<!--                </strong>-->
+            </div>
+
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

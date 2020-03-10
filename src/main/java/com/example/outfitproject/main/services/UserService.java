@@ -4,6 +4,8 @@ import com.example.outfitproject.main.entity.User;
 import com.example.outfitproject.main.entity.repositories.RoleRepository;
 import com.example.outfitproject.main.entity.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,4 +47,24 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return userRepository.findByUsername(currentUserName);
+    }
+
+    public boolean isUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities()
+                .stream()
+                .anyMatch(r -> r.getAuthority().equals("USER"));
+    }
+
+    public boolean isAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities()
+                .stream()
+                .anyMatch(r -> r.getAuthority().equals("ADMIN"));
+    }
+    
 }
