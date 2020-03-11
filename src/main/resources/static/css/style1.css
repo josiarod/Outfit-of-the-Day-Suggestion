@@ -38,3 +38,50 @@
     background-color: #7AA5D2;
     color: white;
 }
+
+footer {
+    padding: 50px 0 65px;
+    background: #7aa5d2;
+    margin-top: 20px;
+}
+
+.footer1 {
+    margin-top: 0px;
+}
+
+.copyright {
+    font-size: 14px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: #fff;
+    margin-top: 50px;
+}
+.bodyhomepage {
+    background: no-repeat center center fixed url("http://res.cloudinary.com/di5v2kyqq/image/upload/v1583949547/light-1282314_1280_bk6aiz.jpg");
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+
+.table {
+    margin-top: 305px;
+}
+
+.weather1{
+    margin-top: 285px;
+    margin-left: 65px;
+}
+
+
