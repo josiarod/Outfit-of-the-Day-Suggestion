@@ -22,7 +22,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
-    
+
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -58,7 +58,7 @@ public class DataLoader implements CommandLineRunner {
         User admin = new User("admin@admin.com", "password", "Admin", "User", "male", true, "admin", "photo4.jpg");
         admin.setRoles(Arrays.asList(adminRole));
         userRepository.save(admin);
-        
+
         ////////////////////////Category//////////////////////////////////////////
         categoryRepository.save(new Category("top"));
         Category top = categoryRepository.findByName("top");

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -32,14 +33,51 @@
 		</table></strong>
 	</div>
 
-<div class="push"></div>
-</div>
-<footer class="py-5 bg-dark footer">
-	<div class="container">
-		<strong><p class="m-0 text-center text-white">Copyright &copy; Outfitgram 2020</p></strong>
-	</div>
-	<!-- /.container -->
-</footer>
+<table class="table table-striped" style="width:100%">
+	<thead class="thead-light">
+	<tr>
+		<th sec:authorize="isAuthenticated()">Select</th>
+		<th>Category</th>
+		<th>Title</th>
+		<th>Color</th>
+		<th>Material</th>
+		<th>Size</th>
+		<th>Picture</th>
+		<th>Description</th>
+		<th>User</th>
+		<th>Occasion</th>
+		<th sec:authorize="isAuthenticated()">Actions</th>
+	</tr>
+	</thead>
+
+	<!--enhanced for loop-->
+	<tr th:each="item : ${items}">
+		<td sec:authorize="isAuthenticated()">
+			<input name="check" th:value="${item.id}" type="checkbox"/>
+		</td>
+		<td th:text="${item.category.name}"></td>
+		<td><a th:href="@{/detail/{id}(id=${item.id})}">[[${item.name}]]</a></td>
+		<td th:text="${item.color}"></td>
+		<td th:text="${item.fabricMaterial}"></td>
+		<td th:text="${item.size}"></td>
+		<td><img alt="Picture" class="img-fluid" height="150" width="150" th:src="${item.picture}"></td>
+		<td th:text="${item.description}"></td>
+		<td th:text="${item.user.username}"></td>
+		<td th:text="${item.occasion}"></td>
+
+		<td sec:authorize="isAuthenticated()">
+			<a th:href="@{/update/{id}(id=${item.id})}">edit</a> -
+			<a class="delBtn"
+			   data-target="#myModal"
+			   data-toggle="modal"
+			   th:href="@{/delete/{id}(id=${item.id})}">Delete</a>
+		</td>
+
+	</tr>
+</table>
+
+
+<footer th:replace="base :: footer-frag"></footer>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -1,5 +1,6 @@
 package com.example.outfitproject.model.controllers;
 
+import com.example.outfitproject.main.entity.repositories.ItemRepository;
 import com.example.outfitproject.model.FormCityAttribute;
 import com.example.outfitproject.model.Weather;
 import com.example.outfitproject.model.WeatherUrl;
@@ -34,6 +35,9 @@ public class WeatherController {
     @Autowired
     private WeatherUrl weatherData;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @RequestMapping(value = "/weather",method= RequestMethod.GET )
     public String CityForm(Model model) {
 
@@ -60,6 +64,7 @@ public class WeatherController {
         ObjectMapper mapper = new ObjectMapper();
         Weather weather = mapper.readValue(resp.getBody(), Weather.class);
         model.addAttribute("weatherData", weather);
+        model.addAttribute("items", itemRepository.findAll());
 
         return "weatherDetails";
     }

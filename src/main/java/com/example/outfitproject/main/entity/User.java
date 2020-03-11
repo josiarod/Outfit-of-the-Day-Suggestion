@@ -1,9 +1,12 @@
 package com.example.outfitproject.main.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="User_Data")
@@ -41,7 +44,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Set<Item> items;
+
     public User(){
+        roles = new HashSet<>();
+        items = new HashSet<>();
     }
 
     public User(String email, String password, String firstName, String lastName, String gender, boolean enabled, String username, String photo){

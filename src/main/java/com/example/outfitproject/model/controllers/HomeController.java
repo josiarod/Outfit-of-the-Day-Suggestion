@@ -103,6 +103,7 @@ public class HomeController {
                 return "itemform";
             }
         }
+        item.setUser(userService.getUser());
         itemRepository.save(item);
         return "redirect:/";
     }
@@ -113,4 +114,6 @@ public class HomeController {
         model.addAttribute("user", userRepository.findByUsername(username));
         return "profile";
     }
+
+
 }

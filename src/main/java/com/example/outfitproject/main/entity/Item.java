@@ -35,12 +35,10 @@ public class Item implements Serializable {
     @NotNull
     private String occasion;
 
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private User user;
 
 
