@@ -32,6 +32,9 @@ public class Item implements Serializable {
     @NotNull
     private String description;
 
+    @NotNull
+    private String occasion;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,16 +51,16 @@ public class Item implements Serializable {
     }
 
 
-    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, Category category, User user) {
+    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, @NotNull String occasion, Category category, User user) {
         this.name = name;
         this.color = color;
         this.fabricMaterial = fabricMaterial;
         this.size = size;
         this.picture = picture;
         this.description = description;
+        this.occasion = occasion;
         this.category = category;
         this.user = user;
-
     }
 
     public static long getSerialVersionUID() {
@@ -120,7 +123,13 @@ public class Item implements Serializable {
         this.description = description;
     }
 
+    public String getOccasion() {
+        return occasion;
+    }
 
+    public void setOccasion(String occasion) {
+        this.occasion = occasion;
+    }
 
     public Category getCategory() {
         return category;
