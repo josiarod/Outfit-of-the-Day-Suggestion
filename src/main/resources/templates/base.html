@@ -25,7 +25,7 @@
                     <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
                 </li>
                 <li sec:authorize ="isAuthenticated()" class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/index">[[${#authentication.name}]]</a>
+                    <a class="nav-link js-scroll-trigger" href="/profile">[[${#authentication.name}]]</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>

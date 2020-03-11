@@ -6,6 +6,7 @@ import com.example.outfitproject.main.entity.Item;
 import com.example.outfitproject.main.entity.User;
 import com.example.outfitproject.main.entity.repositories.CategoryRepository;
 import com.example.outfitproject.main.entity.repositories.ItemRepository;
+import com.example.outfitproject.main.entity.repositories.UserRepository;
 import com.example.outfitproject.main.services.UserService;
 import com.example.outfitproject.model.config.CloudinaryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Map;
 
 @Controller
@@ -30,6 +32,10 @@ public class HomeController {
 
     @Autowired
     ItemRepository itemRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -99,5 +105,12 @@ public class HomeController {
         }
         itemRepository.save(item);
         return "redirect:/";
+    }
+
+    @RequestMapping("/profile")
+    public String showProfile(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("user", userRepository.findByUsername(username));
+        return "profile";
     }
 }
