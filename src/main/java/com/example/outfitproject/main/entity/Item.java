@@ -14,7 +14,7 @@ public class Item implements Serializable {
     private long id;
 
     @NotEmpty
-    @Column(unique = true)
+    @CollectionTable
     private String name;
 
     @NotEmpty
