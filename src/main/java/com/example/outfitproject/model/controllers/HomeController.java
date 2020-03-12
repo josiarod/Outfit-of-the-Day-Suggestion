@@ -118,5 +118,17 @@ public class HomeController {
         return "profile";
     }
 
+    @RequestMapping("/update/{id}")
+    public String updateCourse(@PathVariable("id") long id, Model model) {
+        model.addAttribute("item", itemRepository.findById(id).get());
+        return "itemform";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String delItem(@PathVariable("id") long id) {
+        itemRepository.deleteById(id);
+        return "redirect:/profile";
+    }
+
 
 }
