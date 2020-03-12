@@ -130,5 +130,10 @@ public class HomeController {
         return "redirect:/profile";
     }
 
+    @RequestMapping("/login?logout")
+    public String logout() {
+        return "redirect:/";
+    }
+
 
 }
