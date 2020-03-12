@@ -38,6 +38,11 @@ public class Item implements Serializable {
     @ManyToOne
     private Category category;
 
+    @ManyToOne
+    private Climate climate;
+
+
+
     @ManyToOne(cascade=CascadeType.MERGE)
     private User user;
 
@@ -46,10 +51,11 @@ public class Item implements Serializable {
         picture = "";
         user = new User();
         category = new Category();
+        climate = new Climate();
     }
 
 
-    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, @NotNull String occasion, Category category, User user) {
+    public Item(@NotEmpty String name, @NotEmpty String color, @NotEmpty String fabricMaterial, @NotEmpty String size, @NotNull String picture, @NotNull String description, @NotNull String occasion, Category category, Climate climate, User user) {
         this.name = name;
         this.color = color;
         this.fabricMaterial = fabricMaterial;
@@ -58,6 +64,7 @@ public class Item implements Serializable {
         this.description = description;
         this.occasion = occasion;
         this.category = category;
+        this.climate = climate;
         this.user = user;
     }
 
@@ -145,4 +152,11 @@ public class Item implements Serializable {
         this.user = user;
     }
 
+    public Climate getClimate() {
+        return climate;
+    }
+
+    public void setClimate(Climate climate) {
+        this.climate = climate;
+    }
 }

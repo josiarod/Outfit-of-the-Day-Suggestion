@@ -1,6 +1,7 @@
 package com.example.outfitproject.main.entity.repositories;
 
 import com.example.outfitproject.main.entity.Category;
+import com.example.outfitproject.main.entity.Climate;
 import com.example.outfitproject.main.entity.Item;
 import com.example.outfitproject.main.entity.User;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     //pagination
 
     Iterable<Item> findAllByCategory_Id(Long id);
+    Iterable<Item> findAllByClimate_Id(Long id);
 
+    Iterable<Item> findAllByClimate_IdAndUser(Long id, User user);
 
 
     Item findByName(String name);
@@ -37,6 +40,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
 
+    List<Item> findAllByCategoryAndClimate(Category category, Climate climate); //for admin
+
+    List<Item> findAllByCategoryAndClimateAndUser(Category category, Climate climate, User user);
     ////////////////////////////////////////////////////////////////////////
 
     Page<Item> findAllByNameContainingOrDescriptionContainingAllIgnoreCase(@NotEmpty String name, @NotNull String description, org.springframework.data.domain.Pageable pageable);

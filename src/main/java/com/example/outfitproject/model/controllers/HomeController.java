@@ -2,9 +2,11 @@ package com.example.outfitproject.model.controllers;
 
 import com.cloudinary.utils.ObjectUtils;
 import com.example.outfitproject.main.entity.Category;
+import com.example.outfitproject.main.entity.Climate;
 import com.example.outfitproject.main.entity.Item;
 import com.example.outfitproject.main.entity.User;
 import com.example.outfitproject.main.entity.repositories.CategoryRepository;
+import com.example.outfitproject.main.entity.repositories.ClimateRepository;
 import com.example.outfitproject.main.entity.repositories.ItemRepository;
 import com.example.outfitproject.main.entity.repositories.UserRepository;
 import com.example.outfitproject.main.services.UserService;
@@ -39,14 +41,23 @@ public class HomeController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    ClimateRepository climateRepository;
+
     @ModelAttribute("categories")
     public Iterable<Category> populateCategories() {
         return categoryRepository.findAll();
     }
 
+    @ModelAttribute("climates")
+    public Iterable<Climate> populateClimates() {
+        return climateRepository.findAll();
+    }
+
     @GetMapping("/add-item")
     public String addCar(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("climates", climateRepository.findAll());
         model.addAttribute("item", new Item());
         return "itemform";
     }

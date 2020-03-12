@@ -1,9 +1,11 @@
 package com.example.outfitproject.model.controllers;
 
 import com.example.outfitproject.main.entity.Category;
+import com.example.outfitproject.main.entity.Climate;
 import com.example.outfitproject.main.entity.Item;
 import com.example.outfitproject.main.entity.User;
 import com.example.outfitproject.main.entity.repositories.CategoryRepository;
+import com.example.outfitproject.main.entity.repositories.ClimateRepository;
 import com.example.outfitproject.main.entity.repositories.ItemRepository;
 import com.example.outfitproject.main.services.UserService;
 import com.example.outfitproject.model.FormCityAttribute;
@@ -51,7 +53,15 @@ public class WeatherController {
     private ItemRepository itemRepository;
 
     @Autowired
+    private ClimateRepository climateRepository;
+
+    @Autowired
     UserService userService;
+
+    public void findAll(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("climates", climateRepository.findAll());
+    }
 
     @RequestMapping(value = "/weather",method= RequestMethod.GET )
     public String CityForm(Model model) {
@@ -59,6 +69,8 @@ public class WeatherController {
         model.addAttribute("city", new FormCityAttribute());
         return "formData";
     }
+
+
 
     @RequestMapping(value = "/weather",method= RequestMethod.POST )
     public String getWeather(Model model, @ModelAttribute FormCityAttribute city)
@@ -84,21 +96,36 @@ public class WeatherController {
         return "weatherDetails";
     }
 
+    private String getClimate(double temperature) {
+        String climate;
+        long temp = Math.round(temperature);
+        if (temp < 40) {
+            climate = "cold";
+        } else if (temp >= 40 && temp < 70) {
+            climate = "moderate";
+        } else {
+            climate = "hot";
+        }
+        return climate;
+    }
+
+
     private Set<Item> getOutfit(Weather weather) {
 
         Iterable<Category> categories = categoryRepository.findAll();
         double temperature = Double.valueOf(weather.getTemp());
-
+        String climateString = getClimate(temperature);
+        Climate climate = climateRepository.findByName(climateString);
         User user = userService.getUser();
 
         Set<Item> outfit = new HashSet<>();
         for (Category category : categories) {
             List<Item> list = new ArrayList<>();
             if (userService.isUser()) {
-                list = itemRepository.findAllByCategoryAndUser(category, user);
+                list = itemRepository.findAllByCategoryAndClimateAndUser(category, climate, user);
             }
             if (userService.isAdmin()) {
-                list = itemRepository.findAllByCategory(category);
+                list = itemRepository.findAllByCategoryAndClimate(category, climate);
             }
             if (!list.isEmpty()) {
                 int randomid = (int) (Math.random() * list.size());
