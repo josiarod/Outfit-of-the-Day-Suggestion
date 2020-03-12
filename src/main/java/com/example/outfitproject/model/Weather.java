@@ -66,6 +66,10 @@ public class Weather implements Serializable {
 		return getTemperatureDigitFormatting(temperature) + " °F";
 	}
 
+	public String getTemp() {
+		return getTemperatureDigitFormatting(temperature);
+	}
+
 	public void setTemperature(double temperatureKelvin) {
 		this.temperature = temperatureKelvin;
 	}

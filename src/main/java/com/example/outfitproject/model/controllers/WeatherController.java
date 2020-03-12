@@ -1,6 +1,11 @@
 package com.example.outfitproject.model.controllers;
 
+import com.example.outfitproject.main.entity.Category;
+import com.example.outfitproject.main.entity.Item;
+import com.example.outfitproject.main.entity.User;
+import com.example.outfitproject.main.entity.repositories.CategoryRepository;
 import com.example.outfitproject.main.entity.repositories.ItemRepository;
+import com.example.outfitproject.main.services.UserService;
 import com.example.outfitproject.model.FormCityAttribute;
 import com.example.outfitproject.model.Weather;
 import com.example.outfitproject.model.WeatherUrl;
@@ -24,6 +29,10 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @ComponentScan("com.spring.restapi.config")
 @Controller
@@ -36,7 +45,13 @@ public class WeatherController {
     private WeatherUrl weatherData;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/weather",method= RequestMethod.GET )
     public String CityForm(Model model) {
@@ -64,9 +79,33 @@ public class WeatherController {
         ObjectMapper mapper = new ObjectMapper();
         Weather weather = mapper.readValue(resp.getBody(), Weather.class);
         model.addAttribute("weatherData", weather);
-        model.addAttribute("items", itemRepository.findAll());
-
+        //model.addAttribute("items", itemRepository.findAll());
+        model.addAttribute("items", getOutfit(weather));
         return "weatherDetails";
+    }
+
+    private Set<Item> getOutfit(Weather weather) {
+
+        Iterable<Category> categories = categoryRepository.findAll();
+        double temperature = Double.valueOf(weather.getTemp());
+
+        User user = userService.getUser();
+
+        Set<Item> outfit = new HashSet<>();
+        for (Category category : categories) {
+            List<Item> list = new ArrayList<>();
+            if (userService.isUser()) {
+                list = itemRepository.findAllByCategoryAndUser(category, user);
+            }
+            if (userService.isAdmin()) {
+                list = itemRepository.findAllByCategory(category);
+            }
+            if (!list.isEmpty()) {
+                int randomid = (int) (Math.random() * list.size());
+                outfit.add(list.get(randomid));
+            }
+        }
+        return outfit;
     }
 
 }
