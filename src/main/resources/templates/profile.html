@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
     <style>
         html, body {
             height: 100vh;
@@ -84,18 +85,53 @@
         <p th:inline="text" class="lead">Hello, [[${#authentication.name}]]</p>
     </div>
 </header>
-<section id="contact">
+<section style="margin-bottom: 140px; padding-bottom: 0">
     <div class="container jumbotron">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2><span th:inline="text">[[${user.firstName}]] <span th:inline="text">[[${user.lastName}]]</span></span></h2>
+            <div class="col-lg-3 mx-auto">
+                <h2><span th:inline="text">[[${user.firstName}]] <span th:inline="text">[[${user.lastName}]]</span></span></h2><br>
                 <p class="lead" th:text="${user.username}"></p>
                 <p class="lead" th:text="${user.email}"></p>
             </div>
         </div>
     </div>
 </section>
+<div class="container table-responsive" style="margin-bottom: 100px;">
+<table class="table table-striped">
+    <thead class="thead-light">
+    <tr>
+        <th>Category</th>
+        <th>Item</th>
+        <th>Color</th>
+        <th>Material</th>
+        <th>Size</th>
+        <th>Picture</th>
+        <th>Description</th>
+        <th>User</th>
+        <th>Occasion</th>
+        <th sec:authorize="isAuthenticated()">Actions</th>
+    </tr>
+    </thead>
 
+    <!--enhanced for loop-->
+    <tr th:each="item : ${items}">
+        <td th:text="${item.category.name}"></td>
+        <td><a th:href="@{/detail/{id}(id=${item.id})}">[[${item.name}]]</a></td>
+        <td th:text="${item.color}"></td>
+        <td th:text="${item.fabricMaterial}"></td>
+        <td th:text="${item.size}"></td>
+        <td><img alt="Picture" class="img-fluid" height="150" width="150" th:src="${item.picture}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.user.username}"></td>
+        <td th:text="${item.occasion}"></td>
+
+        <td sec:authorize="isAuthenticated()">
+            <a th:href="@{/update/{id}(id=${item.id})}">EDIT</a>
+            <a th:href="@{/delete/{id}(id=${item.id})}">DELETE</a>
+        </td>
+    </tr>
+</table>
+</div>
 <footer th:replace="base :: footer-frag"></footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

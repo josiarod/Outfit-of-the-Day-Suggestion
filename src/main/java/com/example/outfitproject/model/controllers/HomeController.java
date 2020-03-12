@@ -44,9 +44,6 @@ public class HomeController {
         return categoryRepository.findAll();
     }
 
-
-
-
     @GetMapping("/add-item")
     public String addCar(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
@@ -112,6 +109,12 @@ public class HomeController {
     public String showProfile(Principal principal, Model model) {
         String username = principal.getName();
         model.addAttribute("user", userRepository.findByUsername(username));
+        if (userService.isUser()) {
+            model.addAttribute("items", itemRepository.findAllByUser(userService.getUser()));
+        }
+        if (userService.isAdmin()) {
+            model.addAttribute("items", itemRepository.findAll());
+        }
         return "profile";
     }
 
