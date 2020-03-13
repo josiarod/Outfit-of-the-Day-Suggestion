@@ -116,7 +116,7 @@
     <!--enhanced for loop-->
     <tr th:each="item : ${items}">
         <td th:text="${item.category.name}"></td>
-        <td><a th:href="@{/detail/{id}(id=${item.id})}">[[${item.name}]]</a></td>
+        <td>[[${item.name}]]</td>
         <td th:text="${item.color}"></td>
         <td th:text="${item.fabricMaterial}"></td>
         <td th:text="${item.size}"></td>
