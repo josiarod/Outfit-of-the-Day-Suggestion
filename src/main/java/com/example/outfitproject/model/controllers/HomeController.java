@@ -55,30 +55,11 @@ public class HomeController {
     }
 
     @GetMapping("/add-item")
-    public String addCar(Model model) {
+    public String addItem(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("climates", climateRepository.findAll());
         model.addAttribute("item", new Item());
         return "itemform";
-    }
-
-    @PostMapping("/process-item")
-    public String processItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file, String img) {
-        if (file.isEmpty()) {
-            item.setPicture(img);
-            itemRepository.save(item);
-            return "redirect:/";
-        }
-        try {
-            Map uploadResult = cloudc.upload(file.getBytes(),
-                    ObjectUtils.asMap("resourcetype", "auto"));
-            item.setPicture(uploadResult.get("url").toString());
-            itemRepository.save(item);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "redirect:/add-item";
-        }
-        return "redirect:/";
     }
 
     @PostMapping("/process")
@@ -103,7 +84,7 @@ public class HomeController {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                return "redirect:/add";
+                return "redirect:/add-item";
             }
         } else {
 
@@ -130,9 +111,11 @@ public class HomeController {
     }
 
     @RequestMapping("/update/{id}")
-    public String updateCourse(@PathVariable("id") long id, Model model) {
+    public String updateItem(@PathVariable("id") long id, Model model) {
         model.addAttribute("item", itemRepository.findById(id).get());
-        return "itemform";
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("climates", climateRepository.findAll());
+        return "updateitem";
     }
 
     @RequestMapping("/delete/{id}")
@@ -145,6 +128,38 @@ public class HomeController {
     public String logout() {
         return "redirect:/";
     }
+
+    @PostMapping("/update-item")
+    public String processUpdateItem(@Valid @ModelAttribute("item") Item item, long id,
+                                    BindingResult result,
+                              @RequestParam("file") MultipartFile file,
+                              Model model) {
+        model.addAttribute("image", "Upload Image");
+        model.addAttribute("myuser", userService.getUser());
+        if (result.hasErrors()) {
+            return "updateitem";
+        }
+        if (file.isEmpty()) {
+            item.setPicture(itemRepository.findById(id).get().getPicture());
+        } else {
+            try {
+
+                Map uploadResultMap = cloudc.upload(
+                        file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
+                item.setPicture(uploadResultMap.get("url").toString());
+                item.setUser(userService.getUser());
+                itemRepository.save(item);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/";
+            }
+        }
+        item.setUser(userService.getUser());
+        itemRepository.save(item);
+        return "redirect:/profile";
+    }
+
 
 
 }
