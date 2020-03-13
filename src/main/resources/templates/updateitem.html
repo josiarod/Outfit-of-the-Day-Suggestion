@@ -6,96 +6,92 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- MATERIAL DESIGN ICONIC FONT -->
-    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <script src="https://kit.fontawesome.com/a6ae2d75db.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="wrapper" style="background-image: url('images/bg-registration-form-1.jpg');">
-    <div class="inner">
-        <div class="image-holder">
-            <img src="images/registration-form-1.jpg" alt="">
-        </div>
+<nav th:replace="base :: navbar-links"></nav>
 
-        <form action="#" enctype="multipart/form-data"
-              method="post"
-              th:action="@{/update-item}"
-              th:object="${item}">
-            <input th:field="*{id}" type="hidden"/>
-            <h3>Update Item</h3>
-
-
-            <div class="form-group row ">
-
-                <div class="col-sm-10 text-left">
-                    Category: <select class="custom-select" id="category" th:field="*{category}">
-                    <option th:each="option: ${categories}"
-                            th:utext="${option.name}"
-                            th:value="${option.id}">
-                    </option>
-                </select>
-                    <strong>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+            <form id="updateForm" action="#" enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/update-item}"
+                  th:object="${item}">
+                <input th:field="*{id}" type="hidden"/>
+                <h2 class="letter-space text-uppercase"><i class="fas fa-user-edit"></i> Update Item</h2><br>
+                <div class="form-group row">
+                    <div class="col-sm-10 text-left">
+                        Category: <select class="custom-select" id="category" th:field="*{category}">
+                        <option th:each="option: ${categories}"
+                                th:utext="${option.name}"
+                                th:value="${option.id}">
+                        </option>
+                    </select>
+                        <strong>
                     <span class="error-message"
                           th:errors="*{category}"
                           th:if="${#fields.hasErrors('category')}">
                     </span>
-                    </strong>
+                        </strong>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row ">
-                <div class="col-sm-10 text-left">
-                    Climate: <select class="custom-select" id="climate" th:field="*{climate}">
-                    <option th:each="option: ${climates}"
-                            th:utext="${option.name}"
-                            th:value="${option.id}">
-                    </option>
-                </select>
-                    <strong>
+                <div class="form-group row ">
+                    <div class="col-sm-10 text-left">
+                        Climate: <select class="custom-select" id="climate" th:field="*{climate}">
+                        <option th:each="option: ${climates}"
+                                th:utext="${option.name}"
+                                th:value="${option.id}">
+                        </option>
+                    </select>
+                        <strong>
                     <span class="error-message"
                           th:errors="*{climate}"
                           th:if="${#fields.hasErrors('climate')}">
                     </span>
-                    </strong>
+                        </strong>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-wrapper">
-                <input type="text" placeholder="Item's Name" th:field="*{name}" class="form-control">
-            </div>
-            <div class="form-wrapper">
-                <input type="text" placeholder="Item's Color" th:field="*{color}" class="form-control">
-            </div>
+                <div class="form-group">
+                    Name: <input type="text" placeholder="Item's Name" th:field="*{name}" class="form-control">
+                </div>
+                <div class="form-group">
+                    Color: <input type="text" placeholder="Item's Color" th:field="*{color}" class="form-control">
+                </div>
 
-            <div class="form-wrapper">
-                <input type="text" placeholder="Item's Material" th:field="*{fabricMaterial}" class="form-control">
-            </div>
+                <div class="form-group">
+                    Material: <input type="text" placeholder="Item's Material" th:field="*{fabricMaterial}" class="form-control">
+                </div>
 
-            <div class="form-wrapper">
-                <input type="text" placeholder="Size" th:field="*{size}" class="form-control">
-            </div>
+                <div class="form-group">
+                    Size: <input type="text" placeholder="Size" th:field="*{size}" class="form-control">
+                </div>
 
-            <div class="form-wrapper">
-                <input type="text" placeholder="Description" th:field="*{description}" class="form-control">
-            </div>
+                <div class="form-group">
+                    Description: <input type="text" placeholder="Description" th:field="*{description}" class="form-control">
+                </div>
 
-            <div class="form-wrapper">
-                <input type="text" placeholder="Occasion" th:field="*{occasion}" class="form-control">
-            </div>
+                <div class="form-group">
+                    Occasion: <input type="text" placeholder="Occasion" th:field="*{occasion}" class="form-control">
+                </div>
 
-            <div class="form-wrapper">
-                <input type="file" name="file"/>
-            </div>
+                <div class="form-group">
+                    <input type="file" name="file"/>
+                </div>
 
-            <button class="btn btn-primary" type="submit" >Submit</button>
-        </form>
+                <button class="btn btn-primary" type="submit" >Submit</button>
+            </form>
+        </div>
     </div>
-    <br/>
-
 </div>
+
+<footer th:replace="base :: footer-frag"></footer>
 
 <script crossorigin="anonymous"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

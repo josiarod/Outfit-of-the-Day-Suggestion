@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Item Form</title>
+    <title>Outfitgram | Add Item</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,16 +21,12 @@
             <img src="images/registration-form-1.jpg" alt="">
         </div>
 
-
-
-
     <form action="#" enctype="multipart/form-data"
           method="post"
           th:action="@{/process}"
           th:object="${item}">
         <input th:field="*{id}" type="hidden"/>
         <h3>Add Item</h3>
-
 
         <div class="form-group row ">
 
@@ -91,7 +87,7 @@
 
         <div class="form-wrapper">
             <input type="file" name="file"/>
-        </div>
+        </div><br>
 
         <button class="btn btn-primary" type="submit" >Submit</button>
     </form>
@@ -110,7 +106,4 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
-
-
-
 </html>

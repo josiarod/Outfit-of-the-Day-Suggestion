@@ -151,6 +151,10 @@ footer {
     background: rgba(0, 0, 0, 0.8);
 }
 
+#updateForm {
+    margin-top: 65px;
+}
+
 @media only screen and (min-width: 992px) {
     .card-block {
         padding: 10px;
