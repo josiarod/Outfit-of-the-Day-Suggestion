@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-//Hot Mild Cold
+//Hot Mild Cold #
 @Entity
 public class Climate implements Serializable {
 
