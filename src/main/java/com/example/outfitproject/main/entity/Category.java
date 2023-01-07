@@ -10,7 +10,7 @@ import java.util.Set;
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //orphanRemoval attribute can be used to specify that orphaned entities should be removed
+    //orphanRemoval attribute can be used to specify that orphaned entities should be removed #
     @OneToMany(mappedBy = "category", orphanRemoval = true)
     public Set<Item> items;
     @Id
